@@ -234,6 +234,7 @@ int main(int argc, char *argv[]){
 	FILE *filePointer;
     int wordlength=0;
     int memsize=0;
+    int length = 10000;
     char currentchar;
     if (strcmp(argv[1], "-h") == 0){
          	printf("Usage Interface: \n");
@@ -250,10 +251,10 @@ int main(int argc, char *argv[]){
     filePointer=fopen(argv[1], "r"); 
     
     /* wordgather will hold the current word as it's being read */ 
-    wordgather = (char *)malloc(sizeof(char) * memsize+1);
+    wordgather = (char *)malloc(sizeof(char) * length);
     if(filePointer!= NULL)
     {
-        while(!feof(filePointer))
+        while(!feof(filePointer) && length--)
         {
         	currentchar = fgetc(filePointer);
             /* check to see if c is a letter */
@@ -308,7 +309,7 @@ int main(int argc, char *argv[]){
         }
 
         count=1;
-		master = (struct nlist **)malloc(sizeof(struct nlist *) * count);
+		master = (struct nlist **)malloc(sizeof(struct nlist *) * HASHSIZE);
 		
 		/* Extract all data from case INSENSITIVE hashtable and put in array*/
 		for(i=0;i<HASHSIZE;i++){
